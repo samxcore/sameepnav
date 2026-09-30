@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask Jeeves - Antigravity Monthly Bill Calculator - Netscape Navigator</title>
+  <!-- Matter.js 2D Physics Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000080;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+    }
+
+    #app-container {
+      position: relative;
+      width: 980px;
+      margin: 12px auto;
+    }
+
+    /* Netscape Chrome */
+    .netscape-frame {
+      background: #c0c0c0;
+      border: 3px outset #ffffff;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
+      width: 980px;
+      font-family: Arial, Helvetica, sans-serif;
+      position: relative;
+    }
+
+    .title-bar {
+      background: linear-gradient(90deg, #000080, #1084d0, #000080);
+      color: white;
+      font-weight: bold;
+      font-size: 13px;
+      padding: 4px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: default;
+      letter-spacing: 0.5px;
+    }
+
+    .menu-bar {
+      background: #c0c0c0;
+      border-bottom: 1px solid #808080;
+      padding: 3px 10px;
+      font-size: 12px;
+      display: flex;
+      gap: 18px;
+      color: #000;
+    }
+    .menu-bar span:hover {
+      background: #000080;
+      color: #fff;
+    }
+
+    .nav-toolbar {
+      display: flex;
+      background: #d4d0c8;
+      border-bottom: 2px groove #ffffff;
+      padding: 4px 8px;
+      gap: 6px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-btn-group {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .nav-btn {
+      background: #c0c0c0;
+      border: 2px outset #ffffff;
+      padding: 4px 10px;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 58px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      transition: background 0.1s;
+    }
+    .nav-btn:active {
+      border: 2px inset #ffffff;
+      background: #a0a0a0;
+    }
+
+    /* Netscape Animated Throbber Logo */
+    .netscape-throbber {
+      width: 38px;
+      height: 38px;
+      background: #000040;
+      border: 2px inset #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #00ffff;
+      font-family: 'Times New Roman', serif;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: inset 1px 1px 3px #000;
+      animation: cometPulse 1.8s infinite alternate;
+      cursor: pointer;
+    }
+
+    @keyframes cometPulse {
+      0% { text-shadow: 0 0 2px #00ffff; background: #000030; }
+      100% { text-shadow: 0 0 10px #ffff00, 0 0 15px #00ffff; background: #000070; }
+    }
+
+    .location-bar {
+      display: flex;
+      align-items: center;
+      background: #c0c0c0;
+      padding: 4px 8px;
+      font-size: 12px;
+      gap: 8px;
+      border-bottom: 2px groove #ffffff;
+    }
+    .location-input {
+      flex: 1;
+      background: white;
+      border: 2px inset #ffffff;
+      padding: 3px 6px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #000080;
+    }
+
+    /* Ask Jeeves Card */
+    .web-content {
+      background-color: #002288;
+      padding: 16px 20px 24px;
+    }
+
+    .jeeves-card {
+      background: #fdf5d6;
+      border: 2px solid #000;
+      border-radius: 8px;
+      padding: 18px 22px;
+      display: flex;
+      gap: 24px;
+      min-height: 430px;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.5);
+    }
+
+    .butler-container {
+      width: 170px;
+      text-align: center;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .jeeves-logo {
+      font-size: 34px;
+      font-family: 'Brush Script MT', cursive, Georgia, serif;
+      color: #d81e05;
+      font-weight: bold;
+      transform: rotate(-4deg);
+      display: inline-block;
+      text-shadow: 1px 1px 0 #fff, 2px 2px 0 #800;
+      cursor: grab;
+      margin-bottom: 8px;
+    }
+
+    .butler-svg-wrap {
+      cursor: grab;
+      transition: transform 0.2s;
+    }
+    .butler-svg-wrap:hover {
+      transform: scale(1.05);
+    }
+
+    .form-column {
+      flex: 1;
+    }
+
+    .headline {
+      font-size: 22px;
+      color: #001f7a;
+      font-style: italic;
+      font-weight: bold;
+      margin-bottom: 12px;
+      text-shadow: 1px 1px 0px #fff;
+    }
+
+    .input-box-wrapper {
+      background: #e9e0be;
+      border: 2px solid #b8ab80;
+      padding: 14px 18px;
+      position: relative;
+      box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .bill-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.45);
+      padding: 4px 8px;
+      border: 1px solid #c8be98;
+      border-radius: 4px;
+    }
+    
+    .bill-label {
+      width: 180px;
+      font-weight: bold;
+      color: #000055;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .bill-input {
+      width: 150px;
+      border: 2px inset #ffffff;
+      padding: 4px 8px;
+      font-size: 13px;
+      font-family: monospace;
+      font-weight: bold;
+      color: #000;
+      background: #fff;
+    }
+    .bill-input:focus {
+      background: #ffffdd;
+      outline: none;
+    }
+
+    .ask-btn {
+      background: radial-gradient(ellipse at 35% 35%, #ff3b30, #b00b00);
+      color: white;
+      font-family: Arial, sans-serif;
+      font-style: italic;
+      font-weight: bold;
+      font-size: 20px;
+      border: 2px solid #ffffff;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+      border-radius: 50px;
+      padding: 10px 30px;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      bottom: 12px;
+      text-shadow: 1px 1px 2px #000;
+    }
+    .ask-btn:active {
+      transform: scale(0.96);
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    }
+
+    .result-section {
+      background: #ffffff;
+      border: 2px inset #999;
+      padding: 10px 14px;
+      margin-top: 14px;
+      font-family: monospace;
+      font-size: 12px;
+      display: none;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .status-bar {
+      background: #c0c0c0;
+      border-top: 2px groove #ffffff;
+      padding: 3px 8px;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      color: #000;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Netscape Security Modal */
+    .fake-alert {
+      position: fixed;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background: #c0c0c0;
+      border: 3px outset #ffffff;
+      box-shadow: 6px 6px 16px rgba(0,0,0,0.9);
+      z-index: 9999;
+      display: none;
+      font-family: Arial, sans-serif;
+    }
+    .fake-alert-header {
+      background: #000080;
+      color: white;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .fake-alert-body {
+      padding: 16px;
+      font-size: 13px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: #000;
+    }
+    .fake-alert-btn {
+      background: #c0c0c0;
+      border: 2px outset #ffffff;
+      padding: 4px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 12px;
+      transition: transform 0.15s;
+    }
+    .fake-alert-btn:active {
+      border: 2px inset #ffffff;
+    }
+
+    /* Physics element detachment styles */
+    .physics-body {
+      position: fixed !important;
+      margin: 0 !important;
+      pointer-events: auto !important;
+      z-index: 500;
+      transform-origin: center center;
+      will-change: transform, left, top;
+    }
+
+    /* Floating control HUD (shows gravity status when shattered) */
+    #physics-hud {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 128, 0.85);
+      color: #ffff00;
+      padding: 8px 14px;
+      border: 2px solid #ffffff;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 999999;
+      box-shadow: 4px 4px 0 #000;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Physics HUD -->
+  <div id="physics-hud">
+    🌌 GRAVITY STATUS: <span id="hud-gravity-val" style="color:#00ff00;">1.0G (DOWNWARD)</span><br>
+    💡 TIP: Drag and throw elements with mouse! Click Zero-G to cycle gravity modes.
+  </div>
+
+  <div id="app-container">
+    <div class="netscape-frame" id="netscapeFrame">
+      
+      <!-- Title Bar -->
+      <div class="title-bar gravity-target" id="titleBar">
+        <span>Ask Jeeves - Monthly Bill Expenditure - Netscape Navigator</span>
+        <span>[ _ | ❐ | ✕ ]</span>
+      </div>
+
+      <!-- Menu Bar -->
+      <div class="menu-bar gravity-target" id="menuBar">
+        <span><u>F</u>ile</span>
+        <span><u>E</u>dit</span>
+        <span><u>V</u>iew</span>
+        <span><u>G</u>o</span>
+        <span><u>B</u>ookmarks</span>
+        <span><u>O</u>ptions</span>
+        <span><u>D</u>irectory</span>
+        <span><u>H</u>elp</span>
+      </div>
+
+      <!-- Navigation Toolbar -->
+      <div class="nav-toolbar" id="navToolbar">
+        <div class="nav-btn-group">
+          <div class="nav-btn gravity-target" id="backBtn">⬅️<br>Back</div>
+          <div class="nav-btn gravity-target" id="fwdBtn">➡<br>Forward</div>
+          <div class="nav-btn gravity-target" id="reloadBtn" onclick="location.reload()">🔄<br>Reload</div>
+          <div class="nav-btn gravity-target" id="zeroGBtn" style="background:#ffeedd;">🌌<br><b id="zeroGLabel">Zero-G</b></div>
+        </div>
+
+        <!-- Netscape Pulsing Comet Throbber -->
+        <div class="netscape-throbber gravity-target" id="throbberBtn" title="Netscape Communicator 4.0">
+          N
+        </div>
+      </div>
+
+      <!-- Location Bar -->
+      <div class="location-bar gravity-target" id="locationBar">
+        <b>Location:</b>
+        <input type="text" class="location-input" value="http://www.askjeeves.com/calculators/bills.cgi" readonly>
+      </div>
+
+      <!-- Webpage Content -->
+      <div class="web-content" id="webContent">
+        <div class="jeeves-card" id="jeevesCard">
+          
+          <!-- Butler Container -->
+          <div class="butler-container">
+            <div class="jeeves-logo gravity-target" id="jeevesLogo">Ask Jeeves</div>
+            
+            <!-- Vintage Butler Mascot SVG -->
+            <div class="butler-svg-wrap gravity-target" id="butlerWrap">
+              <svg width="130" height="200" viewBox="0 0 100 160" fill="none">
+                <!-- Head -->
+                <rect x="35" y="10" width="30" height="28" rx="14" fill="#ffdfd0" stroke="#000" stroke-width="2"/>
+                <!-- Hair -->
+                <path d="M35 20 Q50 8 65 20" stroke="#fff" stroke-width="4" fill="none"/>
+                <!-- Eyes -->
+                <circle cx="45" cy="22" r="2" fill="#000"/>
+                <circle cx="55" cy="22" r="2" fill="#000"/>
+                <!-- Mustache -->
+                <path d="M42 30 Q50 35 58 30 Q50 32 42 30 Z" fill="#444" stroke="#000" stroke-width="1"/>
+                <!-- Smile -->
+                <path d="M46 34 Q50 37 54 34" stroke="#000" stroke-width="1.5" fill="none"/>
+                <!-- Tuxedo Body -->
+                <path d="M30 40 L70 40 L78 120 L22 120 Z" fill="#2b2b2b" stroke="#000" stroke-width="2"/>
+                <!-- Shirt Front -->
+                <polygon points="46,40 54,40 50,75" fill="#ffffff" stroke="#000"/>
+                <!-- Red Bow Tie -->
+                <polygon points="43,43 50,47 43,51" fill="#b00b00" stroke="#000"/>
+                <polygon points="57,43 50,47 57,51" fill="#b00b00" stroke="#000"/>
+                <circle cx="50" cy="47" r="2" fill="#800000"/>
+                <!-- Legs -->
+                <rect x="30" y="120" width="18" height="35" fill="#111" stroke="#000"/>
+                <rect x="52" y="120" width="18" height="35" fill="#111" stroke="#000"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Form Fields Column -->
+          <div class="form-column">
+            <div class="headline gravity-target" id="headlineText">
+              What are your monthly bill expenditures?
+            </div>
+
+            <div class="input-box-wrapper" id="inputWrapper">
+              
+              <!-- Housing Row -->
+              <div class="bill-row gravity-target" id="rowHousing">
+                <span class="bill-label">Housing / Rent ($):</span>
+                <input type="text" id="billRent" class="bill-input" value="1200" />
+              </div>
+
+              <!-- Power Row -->
+              <div class="bill-row gravity-target" id="rowPower">
+                <span class="bill-label">Electricity / Heat ($):</span>
+                <input type="text" id="billPower" class="bill-input" value="150" />
+              </div>
+
+              <!-- Internet Row -->
+              <div class="bill-row gravity-target" id="rowNet">
+                <span class="bill-label">Dial-Up ISP ($):</span>
+                <input type="text" id="billNet" class="bill-input" value="50" />
+              </div>
+
+              <!-- Food Row -->
+              <div class="bill-row gravity-target" id="rowFood">
+                <span class="bill-label">Monthly Groceries ($):</span>
+                <input type="text" id="billFood" class="bill-input" value="400" />
+              </div>
+
+              <!-- Misc Row -->
+              <div class="bill-row gravity-target" id="rowMisc">
+                <span class="bill-label">Incidental Costs ($):</span>
+                <input type="text" id="billMisc" class="bill-input" value="100" />
+              </div>
+
+              <!-- Ask Button -->
+              <button type="button" id="askButton" class="ask-btn gravity-target">Ask</button>
+            </div>
+
+            <!-- Ledger Result Box -->
+            <div id="resultBox" class="result-section gravity-target">
+              <div style="color: #008800; font-weight: bold; margin-bottom:4px;">*** JEEVES TOTAL MONTHLY EXPENDITURE LEDGER ***</div>
+              <div id="breakdownOutput">Tallying ledger records...</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Netscape Status Bar -->
+      <div class="status-bar gravity-target" id="statusBar">
+        <span id="statusMessage">Document: Done. (Normal Gravity Enabled)</span>
+        <span>Applet JeevesPhysics.class active</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Netscape Security Alert Modal -->
+  <div id="fakeAlert" class="fake-alert gravity-target">
+    <div class="fake-alert-header">
+      <span>Netscape Security Alert</span>
+      <span style="cursor: pointer; padding: 0 4px;" onclick="closeModal()">✕</span>
+    </div>
+    <div class="fake-alert-body">
+      <span style="font-size: 28px;">⚠️</span>
+      <span id="alertMessage">Critical Gravitational Shear: Page stability has collapsed!</span>
+    </div>
+    <div style="text-align: center; padding-bottom: 12px;">
+      <button id="brokenOkBtn" class="fake-alert-btn">OK</button>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       1. SYNTHETIC SOUND ENGINE (Retro Web Audio API)
+       ========================================================================== */
+    let audioCtx = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playRetroSound(type) {
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        gain.connect(ctx.destination);
+
+        if (type === 'thud') {
+          // Deep physical bounce impact
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(140, now);
+          osc.frequency.exponentialRampToValueAtTime(30, now + 0.12);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+          osc.connect(gain);
+          osc.start(now);
+          osc.stop(now + 0.12);
+        } else if (type === 'collapse') {
+          // Glass shattering / gravitational shear crash
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(400, now);
+          osc.frequency.exponentialRampToValueAtTime(40, now + 0.5);
+          gain.gain.setValueAtTime(0.35, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+          osc.connect(gain);
+          osc.start(now);
+          osc.stop(now + 0.5);
+        } else if (type === 'beep') {
+          // Retro button chirp
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(880, now);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.connect(gain);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        }
+      } catch (e) {}
+    }
+
+    /* ==========================================================================
+       2. BROKEN "OK" BUTTON LOGIC (Refuses to close, wiggles and locks)
+       ========================================================================== */
+    const fakeAlert = document.getElementById('fakeAlert');
+    const alertMessage = document.getElementById('alertMessage');
+    const brokenOkBtn = document.getElementById('brokenOkBtn');
+    let okTaps = 0;
+
+    brokenOkBtn.addEventListener('click', () => {
+      okTaps++;
+      playRetroSound('beep');
+      brokenOkBtn.innerText = `OK (LOCKED: ${okTaps})`;
+      const randX = (Math.random() - 0.5) * 120;
+      const randY = (Math.random() - 0.5) * 30;
+      brokenOkBtn.style.transform = `translate(${randX}px, ${randY}px)`;
+    });
+
+    function triggerModal(msg) {
+      alertMessage.innerText = msg;
+      fakeAlert.style.display = 'block';
+    }
+
+    function closeModal() {
+      fakeAlert.style.display = 'none';
+    }
+
+    /* ==========================================================================
+       3. ANTIGRAVITY MATTER.JS ENGINE (Shatter + Collision Boundaries)
+       ========================================================================== */
+    let physicsActive = false;
+    let matterEngine = null;
+    let staticFloor = null;
+    let staticCeiling = null;
+    let staticLeftWall = null;
+    let staticRightWall = null;
+
+    // Gravity modes: 1.0 = Downward, 0.0 = Zero-G, -1.0 = Upward
+    const gravityModes = [
+      { name: "1.0G (DOWNWARD)", val: 1.0, color: "#00ff00" },
+      { name: "0.0G (ZERO-G DRIFT)", val: 0.0, color: "#00ffff" },
+      { name: "-1.0G (INVERTED SKY)", val: -1.0, color: "#ff00ff" }
+    ];
+    let gravityIndex = 0;
+
+    function activateAntigravity() {
+      if (physicsActive) return;
+      physicsActive = true;
+
+      playRetroSound('collapse');
+
+      // Reveal HUD
+      const hud = document.getElementById('physics-hud');
+      hud.style.display = 'block';
+
+      const Engine = Matter.Engine,
+            World = Matter.World,
+            Bodies = Matter.Bodies,
+            Mouse = Matter.Mouse,
+            MouseConstraint = Matter.MouseConstraint;
+
+      matterEngine = Engine.create();
+      matterEngine.world.gravity.y = 1.0;
+
+      // 4 Boundaries (Floor, Ceiling, Left, Right)
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      staticFloor = Bodies.rectangle(w / 2, h + 25, w * 2, 50, { isStatic: true });
+      staticCeiling = Bodies.rectangle(w / 2, -25, w * 2, 50, { isStatic: true });
+      staticLeftWall = Bodies.rectangle(-25, h / 2, 50, h * 2, { isStatic: true });
+      staticRightWall = Bodies.rectangle(w + 25, h / 2, 50, h * 2, { isStatic: true });
+      World.add(matterEngine.world, [staticFloor, staticCeiling, staticLeftWall, staticRightWall]);
+
+      // Collect all modular leaf components (NO nested overlapping frames!)
+      const targets = Array.from(document.querySelectorAll('.gravity-target'));
+
+      // Pre-measure all screen bounding rects
+      const rectData = targets.map(el => {
+        // If element is hidden (like resultBox or alert), make sure it has dimensions
+        const prevDisplay = el.style.display;
+        if (getComputedStyle(el).display === 'none') {
+          el.style.visibility = 'hidden';
+          el.style.display = 'block';
+        }
+        const rect = el.getBoundingClientRect();
+        el.style.display = prevDisplay;
+        el.style.visibility = 'visible';
+        return { el, rect };
+      }).filter(item => item.rect.width > 0 && item.rect.height > 0);
+
+      const physicsBodies = [];
+
+      // Flatten each component directly into document.body to prevent CSS transform nesting bugs!
+      rectData.forEach(({ el, rect }) => {
+        const body = Bodies.rectangle(
+          rect.left + rect.width / 2,
+          rect.top + rect.height / 2,
+          rect.width,
+          rect.height,
+          {
+            restitution: 0.72, // Bouncy
+            friction: 0.15,
+            density: 0.002
+          }
+        );
+
+        // Apply a small initial explosive scattering toss
+        Matter.Body.setVelocity(body, {
+          x: (Math.random() - 0.5) * 12,
+          y: -Math.random() * 9 - 2
+        });
+
+        // Detach element styling and append directly to body
+        el.style.width = `${rect.width}px`;
+        el.style.height = `${rect.height}px`;
+        el.classList.add('physics-body');
+        document.body.appendChild(el);
+
+        physicsBodies.push({ el, body });
+        World.add(matterEngine.world, body);
+      });
+
+      // Sound on collision!
+      let lastSoundTime = 0;
+      Matter.Events.on(matterEngine, 'collisionStart', (event) => {
+        const now = Date.now();
+        if (now - lastSoundTime > 90) {
+          playRetroSound('thud');
+          lastSoundTime = now;
+        }
+      });
+
+      // Mouse Drag & Throw Constraint
+      const mouse = Mouse.create(document.body);
+      const mouseConstraint = MouseConstraint.create(matterEngine, {
+        mouse: mouse,
+        constraint: {
+          stiffness: 0.25,
+          render: { visible: false }
+        }
+      });
+      World.add(matterEngine.world, mouseConstraint);
+
+      // Animation Loop: Synchronize DOM with Matter.js physical bodies
+      (function runPhysics() {
+        Engine.update(matterEngine, 1000 / 60);
+
+        physicsBodies.forEach(({ el, body }) => {
+          const x = body.position.x - el.offsetWidth / 2;
+          const y = body.position.y - el.offsetHeight / 2;
+          const angle = body.angle;
+          el.style.left = `${x}px`;
+          el.style.top = `${y}px`;
+          el.style.transform = `rotate(${angle}rad)`;
+        });
+
+        requestAnimationFrame(runPhysics);
+      })();
+
+      const status = document.getElementById('statusMessage');
+      if (status) {
+        status.innerText = "FATAL: Netscape Newton.dll exception. Zero-G physics engaged!";
+      }
+
+      // Hide the empty residual shell
+      const residualFrame = document.getElementById('netscapeFrame');
+      if (residualFrame) {
+        residualFrame.style.border = '2px dashed #ff0055';
+        residualFrame.style.background = 'transparent';
+      }
+    }
+
+    // Toggle Gravity Modes (Downward -> Zero-G -> Inverted)
+    function cycleGravity() {
+      playRetroSound('beep');
+      if (!physicsActive) {
+        activateAntigravity();
+        return;
+      }
+
+      gravityIndex = (gravityIndex + 1) % gravityModes.length;
+      const current = gravityModes[gravityIndex];
+      matterEngine.world.gravity.y = current.val;
+
+      // Update HUD
+      const hudVal = document.getElementById('hud-gravity-val');
+      if (hudVal) {
+        hudVal.textContent = current.name;
+        hudVal.style.color = current.color;
+      }
+
+      const zeroGLabel = document.getElementById('zeroGLabel');
+      if (zeroGLabel) {
+        zeroGLabel.textContent = current.val === 0 ? "Normal-G" : (current.val < 0 ? "Zero-G" : "Invert-G");
+      }
+    }
+
+    document.getElementById('zeroGBtn').addEventListener('click', cycleGravity);
+
+    // Responsive screen boundary resizing
+    window.addEventListener('resize', () => {
+      if (!physicsActive || !matterEngine) return;
+      const newW = window.innerWidth;
+      const newH = window.innerHeight;
+      Matter.Body.setPosition(staticFloor, { x: newW / 2, y: newH + 25 });
+      Matter.Body.setPosition(staticCeiling, { x: newW / 2, y: -25 });
+      Matter.Body.setPosition(staticLeftWall, { x: -25, y: newH / 2 });
+      Matter.Body.setPosition(staticRightWall, { x: newW + 25, y: newH / 2 });
+    });
+
+    /* ==========================================================================
+       4. CALCULATION ENGINE & TRIGGERING PHYSICS UPON SUBMISSION
+       ========================================================================== */
+    const askButton = document.getElementById('askButton');
+
+    askButton.addEventListener('click', () => {
+      playRetroSound('beep');
+
+      const rent = parseFloat(document.getElementById('billRent').value) || 0;
+      const power = parseFloat(document.getElementById('billPower').value) || 0;
+      const net = parseFloat(document.getElementById('billNet').value) || 0;
+      const food = parseFloat(document.getElementById('billFood').value) || 0;
+      const misc = parseFloat(document.getElementById('billMisc').value) || 0;
+
+      const total = rent + power + net + food + misc;
+      const daily = (total / 30).toFixed(2);
+
+      const resultBox = document.getElementById('resultBox');
+      const breakdownOutput = document.getElementById('breakdownOutput');
+      resultBox.style.display = 'block';
+
+      breakdownOutput.innerHTML = `
+        --------------------------------------------------<br>
+        <b>FINAL BILL LEDGER AUDITED:</b><br>
+        • Housing: $${rent.toFixed(2)} | Utilities: $${power.toFixed(2)}<br>
+        • Dial-Up ISP: $${net.toFixed(2)} | Groceries: $${food.toFixed(2)}<br>
+        • Incidental/Misc: $${misc.toFixed(2)}<br>
+        --------------------------------------------------<br>
+        <span style="color:red; font-size:13px;"><b>TOTAL MONTHLY DRAIN: $${total.toFixed(2)}</b></span><br>
+        <b>DAILY AVERAGE: $${daily} / day</b><br>
+        --------------------------------------------------<br>
+        <i>Notice: The astronomical weight of your expenditures has broken local gravitational integrity.</i>
+      `;
+
+      // Trigger the physics collapse and modal
+      setTimeout(() => {
+        activateAntigravity();
+        triggerModal("ALERT: Monthly expenditure exceeds gravity threshold! Interface stability has collapsed.");
+      }, 350);
+    });
+  </script>
+</body>
+</html>

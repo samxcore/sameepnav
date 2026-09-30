@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ ENTERPRISE PORTAL 2000™ - ULTRA REGISTRATION FORM ⚡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Creepster&family=Rubik+Glitch&family=Chango&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       HOSTILE CORE STYLES & RETRO HAZARD AESTHETICS
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      cursor: none !important; /* System cursor hidden globally */
+      user-select: none;
+    }
+
+    :root {
+      --toxic-green: #39ff14;
+      --hot-magenta: #ff007f;
+      --electric-cyan: #00ffff;
+      --screaming-yellow: #ffff00;
+      --win95-gray: #c0c0c0;
+      --win95-dark: #808080;
+      --win95-light: #ffffff;
+      --win95-black: #000000;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Comic Sans MS', 'Papyrus', 'VT323', fantasy, cursive, sans-serif;
+      background: repeating-linear-gradient(
+        -45deg,
+        #000 0px,
+        #000 25px,
+        #ffd700 25px,
+        #ffd700 50px,
+        #ff0055 50px,
+        #ff0055 75px,
+        #00ffff 75px,
+        #00ffff 100px
+      );
+      background-size: 200% 200%;
+      animation: hazardScroll 3s linear infinite, strobeFilter 8s infinite alternate;
+      position: relative;
+    }
+
+    @keyframes hazardScroll {
+      0% { background-position: 0 0; }
+      100% { background-position: 141px 141px; }
+    }
+
+    @keyframes strobeFilter {
+      0% { filter: hue-rotate(0deg) contrast(110%); }
+      33% { filter: hue-rotate(90deg) contrast(140%) brightness(1.1); }
+      66% { filter: hue-rotate(240deg) contrast(160%) invert(10%); }
+      100% { filter: hue-rotate(360deg) contrast(110%); }
+    }
+
+    /* Screen CRT Scanlines */
+    body::after {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+      z-index: 9998;
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+    }
+
+    /* Trailing Displaced Fake Cursor */
+    #fake-cursor {
+      position: fixed;
+      width: 32px;
+      height: 38px;
+      pointer-events: none;
+      z-index: 999999;
+      transform: translate(26px, 26px); /* Displaced by 26px to ruin accuracy! */
+      filter: drop-shadow(4px 4px 0px #000);
+      transition: transform 0.04s ease-out;
+      will-change: top, left;
+    }
+
+    #fake-cursor svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 6px cyan);
+      animation: cursorJiggle 0.6s infinite alternate;
+    }
+
+    @keyframes cursorJiggle {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.15) rotate(-6deg); }
+    }
+
+    /* Top Marquee Bar */
+    .insane-marquee {
+      background: #000080;
+      color: var(--screaming-yellow);
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      border: 3px dashed var(--toxic-green);
+      padding: 6px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px #ff0055, -2px -2px #00ffff;
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.6);
+    }
+
+    /* Main Tilt Windows 95 Container */
+    .rage-window {
+      max-width: 820px;
+      margin: 10px auto 120px auto;
+      background: var(--win95-gray);
+      border: 5px outset var(--win95-light);
+      box-shadow: 12px 16px 0px rgba(0, 0, 0, 0.8), 0 0 30px var(--hot-magenta);
+      padding: 6px;
+      transform: rotate(-1.85deg); /* Permanent hostile tilt */
+      transition: transform 0.25s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      position: relative;
+    }
+
+    .rage-window:hover {
+      transform: rotate(1.2deg) scale(1.008);
+    }
+
+    /* Windows 95 Title Bar */
+    .title-bar {
+      background: linear-gradient(90deg, #000080, #1084d0, #800080);
+      padding: 6px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px #000;
+    }
+
+    .title-bar-buttons {
+      display: flex;
+      gap: 5px;
+    }
+
+    .win-btn {
+      width: 26px;
+      height: 24px;
+      background: var(--win95-gray);
+      border: 2px outset var(--win95-light);
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 18px;
+      text-align: center;
+      color: black;
+      transition: all 0.2s;
+    }
+
+    .win-btn:active {
+      border: 2px inset var(--win95-dark);
+    }
+
+    #close-btn {
+      color: red;
+      font-family: sans-serif;
+    }
+
+    /* Window Content */
+    .window-body {
+      padding: 20px;
+      background: #dfdfdf;
+      border: 3px inset #ffffff;
+      position: relative;
+    }
+
+    /* Sound Control Panel */
+    .audio-rig {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 100000;
+      background: #ffff00;
+      border: 3px solid #ff0000;
+      padding: 8px 14px;
+      font-family: 'VT323', monospace;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #000;
+      box-shadow: 6px 6px 0 #000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: pulseBorder 1s infinite alternate;
+    }
+
+    @keyframes pulseBorder {
+      0% { transform: scale(1) rotate(2deg); }
+      100% { transform: scale(1.05) rotate(-2deg); }
+    }
+
+    .audio-btn {
+      background: #ff0055;
+      color: white;
+      border: 3px outset #fff;
+      padding: 4px 10px;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+    }
+
+    /* Regressing Progress Bar */
+    .progress-section {
+      background: #000;
+      border: 4px groove var(--electric-cyan);
+      padding: 12px;
+      margin-bottom: 20px;
+      color: var(--toxic-green);
+      font-family: 'VT323', monospace;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 32px;
+      background: #222;
+      border: 3px inset #555;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 98%;
+      background: repeating-linear-gradient(
+        45deg,
+        #39ff14,
+        #39ff14 15px,
+        #ff007f 15px,
+        #ff007f 30px
+      );
+      transition: width 0.4s ease-out;
+      box-shadow: 0 0 12px var(--toxic-green);
+    }
+
+    .inactivity-warning {
+      color: #ff0055;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 6px;
+      animation: blinkText 0.5s infinite;
+    }
+
+    @keyframes blinkText {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* Headings with Chromatic Aberration */
+    h1.chromatic-title {
+      font-family: 'Papyrus', 'Comic Sans MS', fantasy;
+      font-size: 2.3rem;
+      text-align: center;
+      margin: 10px 0 20px 0;
+      color: #000;
+      position: relative;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 
+        3px 3px 0 cyan,
+        -3px -3px 0 red,
+        0 0 10px yellow;
+      animation: titleVibrate 0.15s infinite;
+    }
+
+    @keyframes titleVibrate {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-1px, 1px); }
+      50% { transform: translate(1px, -1px); }
+      75% { transform: translate(-1px, -1px); }
+      100% { transform: translate(1px, 1px); }
+    }
+
+    /* ==========================================================================
+       SHUFFLEABLE FORM ITEMS
+       ========================================================================== */
+    #form-field-container {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: all 0.3s cubic-bezier(0.6, 0.05, 0.28, 0.9);
+    }
+
+    .form-item {
+      background: #ffffcc;
+      border: 4px dashed #ff007f;
+      padding: 16px;
+      position: relative;
+      box-shadow: 6px 6px 0px #000080;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+
+    .form-item:nth-child(even) {
+      background: #e6ffff;
+      border-color: #39ff14;
+      transform: rotate(0.6deg);
+    }
+
+    .form-item:nth-child(odd) {
+      transform: rotate(-0.5deg);
+    }
+
+    .form-item.shuffle-flash {
+      animation: flashRed 0.6s ease-in-out;
+    }
+
+    @keyframes flashRed {
+      0% { background: #ff0055; transform: scale(1.05) rotate(3deg); }
+      50% { background: #ffff00; }
+      100% { transform: scale(1); }
+    }
+
+    .item-label {
+      display: block;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 8px;
+      font-family: 'Comic Sans MS', sans-serif;
+      text-shadow: 1px 1px 0 #ffff00;
+    }
+
+    .item-subtext {
+      display: block;
+      font-size: 0.9rem;
+      color: #b30000;
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    /* Sabotaged Inputs */
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1.3rem;
+      font-family: 'VT323', Courier, monospace;
+      letter-spacing: 2px;
+      background: #000;
+      color: #00ff66;
+      border: 4px inset #808080;
+      box-shadow: inset 3px 3px 0 #000;
+      outline: none;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus {
+      background: #2b002b;
+      color: #ffff00;
+      border-color: #ff00ff;
+    }
+
+    /* Vowel Penalty Feedback */
+    #vowel-penalty-alert {
+      display: none;
+      background: #ff0000;
+      color: #ffff00;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      padding: 6px;
+      margin-top: 6px;
+      border: 2px solid #000;
+      text-align: center;
+      animation: screamAlert 0.2s infinite alternate;
+    }
+
+    @keyframes screamAlert {
+      from { transform: translateX(-4px); }
+      to { transform: translateX(4px); }
+    }
+
+    /* Password Checklist */
+    .pw-checklist {
+      margin-top: 12px;
+      background: #000000;
+      border: 3px solid #ff0000;
+      padding: 10px;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .pw-rule {
+      margin: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+
+    .pw-rule.fail {
+      color: #ff3333;
+    }
+
+    .pw-rule.pass {
+      color: #00ff00;
+      text-shadow: 0 0 8px #00ff00;
+    }
+
+    .badge-icon {
+      font-size: 1.3rem;
+      min-width: 22px;
+    }
+
+    /* Phone Number Volume Slider */
+    .phone-control-box {
+      background: #111;
+      padding: 12px;
+      border: 3px inset #fff;
+      color: #00ffff;
+      text-align: center;
+    }
+
+    .phone-display {
+      font-family: 'VT323', monospace;
+      font-size: 2.2rem;
+      color: var(--toxic-green);
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px var(--toxic-green);
+      background: #000;
+      padding: 8px;
+      border: 2px dashed #ff0055;
+    }
+
+    .phone-slider {
+      width: 100%;
+      height: 36px;
+      margin: 10px 0;
+      accent-color: #ff0055;
+    }
+
+    .nudge-controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .nudge-btn {
+      background: #ffff00;
+      color: #000;
+      border: 3px outset #ffffff;
+      padding: 6px 16px;
+      font-family: 'Comic Sans MS', sans-serif;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    .nudge-btn:active {
+      border: 3px inset #000;
+      transform: translateY(2px);
+    }
+
+    /* Exponential Age Slider */
+    .age-control-box {
+      background: #2b0040;
+      padding: 12px;
+      border: 3px groove #ff00ff;
+      color: #ffff00;
+      text-align: center;
+    }
+
+    .age-display {
+      font-family: 'VT323', monospace;
+      font-size: 1.8rem;
+      color: #ffff00;
+      background: #000;
+      padding: 6px;
+      margin-bottom: 10px;
+      border: 2px solid cyan;
+    }
+
+    .age-slider {
+      width: 100%;
+      height: 32px;
+      accent-color: #00ffff;
+    }
+
+    /* Inverted Checkbox */
+    .agreement-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #fff0f5;
+      padding: 12px;
+      border: 3px double #800080;
+      font-size: 1.05rem;
+      line-height: 1.35;
+    }
+
+    .agreement-container input[type="checkbox"] {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      margin-top: 4px;
+      accent-color: #ff0000;
+    }
+
+    .agreement-status-msg {
+      margin-top: 8px;
+      font-family: 'VT323', monospace;
+      font-size: 1.25rem;
+      color: #cc0000;
+      font-weight: bold;
+    }
+
+    /* ==========================================================================
+       EVASIVE & DECOY SUBMIT BUTTONS
+       ========================================================================== */
+    .button-arena {
+      position: relative;
+      height: 170px;
+      margin-top: 25px;
+      background: repeating-linear-gradient(
+        0deg,
+        #222,
+        #222 10px,
+        #333 10px,
+        #333 20px
+      );
+      border: 4px inset #fff;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .arena-banner {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+      color: #ffff00;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      pointer-events: none;
+    }
+
+    .interactive-btn {
+      position: absolute;
+      padding: 14px 24px;
+      font-family: 'Impact', 'Arial Black', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 6px 6px 0px #000;
+      transition: left 0.12s ease-out, top 0.12s ease-out, background-color 0.3s;
+      z-index: 100;
+    }
+
+    /* Dynamic Button A (Quantum Evasive) */
+    #btn-alpha {
+      top: 60px;
+      left: 15%;
+      background: linear-gradient(180deg, #00ff00, #008800);
+      color: #000;
+      border: 4px outset #ffffff;
+      text-shadow: 1px 1px 0 #fff;
+    }
+
+    /* Dynamic Button B (Decoy Trap) */
+    #btn-beta {
+      top: 60px;
+      left: 55%;
+      background: linear-gradient(180deg, #ff0055, #990033);
+      color: #fff;
+      border: 4px outset #ffffff;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    /* ==========================================================================
+       HOSTILE OBSTACLES: EVASIVE COOKIE BANNER
+       ========================================================================== */
+    #evasive-cookie-banner {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 360px;
+      background: #ffff00;
+      border: 5px outset #ff0000;
+      box-shadow: 10px 10px 0px #000;
+      padding: 16px;
+      z-index: 99990;
+      font-family: 'Comic Sans MS', sans-serif;
+      color: #000;
+      animation: jitterCookie 2s infinite alternate;
+    }
+
+    @keyframes jitterCookie {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(-1.5deg); }
+      100% { transform: rotate(1.5deg); }
+    }
+
+    .cookie-title {
+      font-weight: bold;
+      font-size: 1.25rem;
+      color: #ff0000;
+      margin-bottom: 6px;
+      text-shadow: 1px 1px 0 #fff;
+    }
+
+    .cookie-text {
+      font-size: 0.85rem;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .cookie-actions {
+      position: relative;
+      height: 48px;
+    }
+
+    #cookie-accept-btn {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: #00cc00;
+      color: white;
+      border: 3px outset #fff;
+      font-weight: bold;
+      padding: 6px 12px;
+      transition: all 0.15s ease-out;
+    }
+
+    #cookie-surrender-btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: #ff0055;
+      color: white;
+      border: 3px outset #fff;
+      font-weight: bold;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+    }
+
+    /* ==========================================================================
+       IMPOSSIBLE EXISTENTIAL CAPTCHA MODAL
+       ========================================================================== */
+    #captcha-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999999;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .captcha-box {
+      width: 90%;
+      max-width: 540px;
+      background: #c0c0c0;
+      border: 6px outset #ffffff;
+      padding: 16px;
+      box-shadow: 0 0 50px #ff0000;
+      font-family: 'Comic Sans MS', sans-serif;
+      text-align: center;
+    }
+
+    .captcha-banner {
+      background: #000080;
+      color: #ffff00;
+      padding: 8px;
+      font-family: 'VT323', monospace;
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      text-shadow: 2px 2px #ff0055;
+    }
+
+    .captcha-instruction {
+      font-size: 1.15rem;
+      color: #000;
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+
+    .captcha-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .captcha-tile {
+      height: 90px;
+      background: #333;
+      border: 3px inset #888;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 2rem;
+      transition: transform 0.1s;
+    }
+
+    .captcha-tile:hover {
+      transform: scale(1.08) rotate(4deg);
+      border-color: #ffff00;
+    }
+
+    .captcha-tile.selected {
+      border: 4px solid #ff0000;
+      background: #550000;
+    }
+
+    .captcha-tile span {
+      font-size: 0.75rem;
+      font-family: 'Courier New', Courier, monospace;
+      color: #ccc;
+      margin-top: 4px;
+    }
+
+    .captcha-timer-bar-track {
+      width: 100%;
+      height: 20px;
+      background: #000;
+      border: 2px inset #fff;
+      margin-bottom: 12px;
+    }
+
+    #captcha-timer-fill {
+      width: 100%;
+      height: 100%;
+      background: red;
+      transition: width 0.05s linear;
+    }
+
+    .captcha-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Fatal Wipe Shock Overlay */
+    #wipe-flash-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: red;
+      z-index: 10000000;
+      color: yellow;
+      font-family: 'Impact', sans-serif;
+      font-size: 3rem;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+      animation: fatalStrobe 0.1s infinite alternate;
+    }
+
+    @keyframes fatalStrobe {
+      from { background: red; color: yellow; }
+      to { background: blue; color: white; }
+    }
+
+    /* Netscape Badge Footer */
+    .netscape-footer {
+      margin-top: 30px;
+      text-align: center;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      color: #555;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .retro-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .retro-badge {
+      background: #000;
+      color: #00ff00;
+      border: 2px outset #c0c0c0;
+      padding: 2px 8px;
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .rage-window {
+        margin: 5px;
+        transform: rotate(0deg) !important;
+      }
+      .audio-rig {
+        position: static;
+        margin-bottom: 15px;
+      }
+      #evasive-cookie-banner {
+        width: calc(100% - 40px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Displaced Trailing Hostile Cursor -->
+  <div id="fake-cursor">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 0L4 22L9.5 17L14.5 24L18 22L13 15L20 15L4 0Z" fill="#ff0000" stroke="#ffff00" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <!-- Audio Controls (Reverse Mute Trap) -->
+  <div class="audio-rig">
+    <span>🔊 AUDIO FX:</span>
+    <button type="button" class="audio-btn" id="mute-trap-btn">🔇 MUTE ALL SOUNDS</button>
+    <span id="volume-indicator">VOL: 100%</span>
+  </div>
+
+  <!-- Top Screaming Marquee -->
+  <div class="insane-marquee">
+    <marquee behavior="alternate" scrollamount="12">
+      🔥 ATTENTION CITIZEN: REGISTRATION IS MANDATORY BY FEDERAL STATUTE 94.22 // FAILURE TO SUBMIT WITHIN 5 SECONDS RESULTS IN RECURSIVE DOM RESHUFFLE // DO NOT BLUR INPUTS 🔥
+    </marquee>
+  </div>
+
+  <!-- Main Win95 Rage Window -->
+  <div class="rage-window" id="main-rage-window">
+    <div class="title-bar">
+      <span>📁 C:\SYSTEM32\PORTAL\ENROLLMENT_V9.EXE [CRITICAL_UNSTABLE]</span>
+      <div class="title-bar-buttons">
+        <button type="button" class="win-btn" id="min-btn">_</button>
+        <button type="button" class="win-btn" id="max-btn">□</button>
+        <button type="button" class="win-btn" id="close-btn">X</button>
+      </div>
+    </div>
+
+    <div class="window-body">
+      <!-- Regressing Progress Bar -->
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>PROGRESS TOWARDS COMPLETION:</span>
+          <span id="progress-text">98.4% COMPLETE</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-bar-fill"></div>
+        </div>
+        <div class="inactivity-warning" id="inactivity-msg">
+          ⏱️ IDLE REORDER COUNTER: <span id="idle-timer-val">5.0s</span> UNTIL TOTAL SHUFFLE
+        </div>
+      </div>
+
+      <h1 class="chromatic-title">⚡ CITIZEN INTAKE FORM ⚡</h1>
+
+      <!-- Shuffleable Form Items Container -->
+      <form id="rage-form" onsubmit="event.preventDefault();">
+        <div id="form-field-container">
+
+          <!-- 1. FULL NAME WITH VOWEL PENALTY -->
+          <div class="form-item" data-field-id="name" id="item-name">
+            <label class="item-label" for="user-name">1. Legal Full Name (Consonants Only Preferred):</label>
+            <span class="item-subtext">⚠️ WARNING: Vowel usage is severely penalized under local municipal guidelines.</span>
+            <input type="text" id="user-name" placeholder="E.g. JHN SMTH..." autocomplete="off" spellcheck="false">
+            <div id="vowel-penalty-alert">⚠️ ILLEGAL VOWEL PENALTY TRIGGERED: Vowel & preceding 2 characters erased!</div>
+          </div>
+
+          <!-- 2. PASSWORD GAME CHECKLIST -->
+          <div class="form-item" data-field-id="password" id="item-password">
+            <label class="item-label" for="user-pass">2. Biometric Passcode Matrix:</label>
+            <span class="item-subtext">Must satisfy all Department of Cybernetic Rectitude standards simultaneously.</span>
+            <input type="text" id="user-pass" placeholder="Enter impossible passphrase..." autocomplete="off" spellcheck="false">
+            
+            <div class="pw-checklist">
+              <div class="pw-rule fail" id="rule-len">
+                <span class="badge-icon">❌</span>
+                <span>Rule 1: Passphrase must be at least 10 characters in length.</span>
+              </div>
+              <div class="pw-rule fail" id="rule-roman">
+                <span class="badge-icon">❌</span>
+                <span>Rule 2: Must contain at least one valid Roman Numeral (I, V, X, L, C, D, M).</span>
+              </div>
+              <div class="pw-rule fail" id="rule-gold">
+                <span class="badge-icon">❌</span>
+                <span>Rule 3: Must include the atomic number of Gold (79).</span>
+              </div>
+              <div class="pw-rule fail" id="rule-temp">
+                <span class="badge-icon">❌</span>
+                <span>Rule 4: Must contain current ambient server room temperature (28°C).</span>
+              </div>
+              <div class="pw-rule fail" id="rule-sum">
+                <span class="badge-icon">❌</span>
+                <span id="rule-sum-label">Rule 5: The arithmetic sum of all numeric digits must equal EXACTLY 25 (Current sum: 0).</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. VOLUME-SLIDER PHONE NUMBER PICKER -->
+          <div class="form-item" data-field-id="phone" id="item-phone">
+            <label class="item-label">3. Emergency Telephony Frequency (10-Digit Continuous Range):</label>
+            <span class="item-subtext">Select your 10-digit telephone number via high-precision frequency potentiometer.</span>
+            <div class="phone-control-box">
+              <div class="phone-display" id="phone-number-display">+1 (555) 019-9283</div>
+              <input type="range" class="phone-slider" id="phone-slider" min="1000000000" max="9999999999" value="5550199283" step="1">
+              <div class="nudge-controls">
+                <button type="button" class="nudge-btn" id="phone-sub-btn">◄ Fine Tune (-1)</button>
+                <button type="button" class="nudge-btn" id="phone-add-btn">Fine Tune (+1) ►</button>
+                <button type="button" class="nudge-btn" id="phone-rand-btn">🎲 Randomize Tone</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. EXPONENTIAL AGE DIAL -->
+          <div class="form-item" data-field-id="age" id="item-age">
+            <label class="item-label">4. Temporal Chronological Age (Logarithmic Continuum):</label>
+            <span class="item-subtext">Precision micro-step potentiometer (100,000 steps across cosmic timescales).</span>
+            <div class="age-control-box">
+              <div class="age-display" id="age-display">Age: 24.8 Earth Years (Calibrating...)</div>
+              <input type="range" class="age-slider" id="age-slider" min="0" max="100000" value="48200" step="1">
+              <div style="font-size: 0.85rem; color: #ff00ff; margin-top: 6px;">
+                ◀ Embryonic Singularity (0.0001 ms) &nbsp;|&nbsp; Heat Death of Universe (10¹⁴ Giga-Years) ▶
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. INVERTED AGREEMENT CLAUSE -->
+          <div class="form-item" data-field-id="agreement" id="item-agreement">
+            <label class="item-label">5. Mandatory Double/Triple Negative Consent Affirmation:</label>
+            <div class="agreement-container">
+              <input type="checkbox" id="inverted-checkbox">
+              <label for="inverted-checkbox" id="agreement-clause-text">
+                By <strong>UN-CHECKING</strong> this checkbox, you hereby refrain from not rejecting our refusal to disallow the disclosure of your biometric privacy data to unsolicited commercial entities, unless you explicitly do not decline to forgo your non-opt-out status.
+              </label>
+            </div>
+            <div class="agreement-status-msg" id="agreement-status">
+              CURRENT STATUS: Opted-In by virtue of default non-unchecking.
+            </div>
+          </div>
+
+        </div> <!-- /form-field-container -->
+
+        <!-- EVASIVE & DECOY BUTTON ARENA -->
+        <div class="button-arena" id="button-arena">
+          <div class="arena-banner">⚠️ FINALIZATION ZONE: SELECT A SUBMISSION NODE CAREFULLY ⚠️</div>
+          
+          <!-- Button A: Quantum Evasive or Trapped -->
+          <button type="button" class="interactive-btn" id="btn-alpha">
+            🚀 SUBMIT APPLICATION
+          </button>
+
+          <!-- Button B: Decoy Trap or Evasive -->
+          <button type="button" class="interactive-btn" id="btn-beta">
+            ⚡ INSTANT ENROLL (EXPEDITED)
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Retro Footer & Easter Eggs -->
+      <div class="netscape-footer">
+        <div>Optimized for Netscape Navigator 3.0 at 640x480 resolution (16 Colors)</div>
+        <div class="retro-badges">
+          <span class="retro-badge">HTML 0.8 VALIDATED</span>
+          <span class="retro-badge">Y2K CERTIFIED</span>
+          <span class="retro-badge">NO COOKIES RESPECTED</span>
+          <span class="retro-badge">POWERED BY PANIC™</span>
+        </div>
+      </div>
+
+    </div> <!-- /window-body -->
+  </div> <!-- /rage-window -->
+
+  <!-- HOSTILE OBSTACLE: EVASIVE COOKIE CONSENT BANNER -->
+  <div id="evasive-cookie-banner">
+    <div class="cookie-title">🍪 YOUR PRIVACY IS OUR COMMODITY</div>
+    <div class="cookie-text">
+      We use 4,812 non-essential tracking pixels to monitor your eyeball micro-tremors. You cannot opt out, but you may attempt to accept:
+    </div>
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept-btn">ACCEPT ALL &amp; SURRENDER</button>
+      <button type="button" id="cookie-surrender-btn" onclick="alert('ERROR: Rejecting cookies is punishable under Section 4B.');">REJECT NOTHING</button>
+    </div>
+  </div>
+
+  <!-- IMPOSSIBLE CAPTCHA MODAL (STAGE 1 OF 47) -->
+  <div id="captcha-modal-overlay">
+    <div class="captcha-box">
+      <div class="captcha-banner">💀 EXISTENTIAL VERIFICATION REQUIRED [STAGE 1 OF 47]</div>
+      <p class="captcha-instruction" id="captcha-instruction-text">
+        Select all tiles containing <strong>FLEETING GLIMPSES OF MATERNAL VALIDATION</strong> or inner serenity before timeline collapses:
+      </p>
+
+      <div class="captcha-timer-bar-track">
+        <div id="captcha-timer-fill"></div>
+      </div>
+
+      <div class="captcha-grid" id="captcha-grid">
+        <div class="captcha-tile" onclick="toggleCaptchaTile(this)">🕳️<span>VOID</span></div>
+        <div class="captcha-tile" onclick="toggleCaptchaTile(this)">🌪️<span>DESPAIR</span></div>
+        <div class="captcha-tile" onclick="toggleCaptchaTile(this)">📺<span>STATIC</span></div>
+        <div class="captcha-tile" onclick="toggleCaptchaTile(this)">🗿<span>APATHY</span></div>
+        <div class="captcha-tile" onclick="toggleCaptchaTile(this)">🕷️<span>REGRET</span></div>
+        <div class="captcha-tile" onclick="toggleCaptchaTile(this)">🥀<span>WITHER</span></div>
+        <div class="captcha-tile" onclick="toggleCaptchaTile(this)">🪞<span>NOTHING</span></div>
+        <div class="captcha-tile" onclick="toggleCaptchaTile(this)">🔥<span>ANXIETY</span></div>
+        <div class="captcha-tile" onclick="toggleCaptchaTile(this)">⏳<span>DECAY</span></div>
+      </div>
+
+      <div class="captcha-footer">
+        <span style="font-family:'VT323'; font-size:1.3rem; color:red;">LIMIT: 1.8s</span>
+        <button type="button" class="nudge-btn" onclick="failCaptcha('Verification rejected by neural engine.')">CONFIRM SOUL IDENTITY</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FATAL PROGRESS WIPE FLASH OVERLAY -->
+  <div id="wipe-flash-overlay">
+    <div>
+      💥 FATAL SECURITY BREACH! 💥<br>
+      <span style="font-size: 1.8rem; font-family: 'Courier New';">PROGRESS WIPED TO PREVENT COGNITIVE OVERHEATING.</span>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT ENGINE OF CHAOS -->
+  <script>
+    /* ==========================================================================
+       1. SYNTHETIC WEB AUDIO ENGINE (NO EXTERNAL LIBS, 100% SELF-CONTAINED)
+       ========================================================================== */
+    let audioCtx = null;
+    let masterGain = null;
+    let currentVolumeLevel = 1.0; // Starts at 100%
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        masterGain = audioCtx.createGain();
+        masterGain.gain.setValueAtTime(currentVolumeLevel, audioCtx.currentTime);
+        masterGain.connect(audioCtx.destination);
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // Play harsh synthetic sound effects
+    function playSfx(type) {
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        gain.connect(masterGain);
+
+        const now = ctx.currentTime;
+
+        if (type === 'beep') {
+          // Annoying typing beep
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(800 + Math.random() * 400, now);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.connect(gain);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'dodge') {
+          // Whoosh boing
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(200, now);
+          osc.frequency.exponentialRampToValueAtTime(1400, now + 0.15);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+          osc.connect(gain);
+          osc.start(now);
+          osc.stop(now + 0.18);
+        } else if (type === 'penalty') {
+          // Low buzzing penalty
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(120, now);
+          osc.frequency.setValueAtTime(90, now + 0.1);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+          osc.connect(gain);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'siren') {
+          // Alarm siren for shuffle
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(450, now);
+          osc.frequency.linearRampToValueAtTime(900, now + 0.15);
+          osc.frequency.linearRampToValueAtTime(450, now + 0.3);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.32);
+          osc.connect(gain);
+          osc.start(now);
+          osc.stop(now + 0.32);
+        } else if (type === 'wipe') {
+          // Catastrophic crash explosion
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(80, now);
+          osc.frequency.exponentialRampToValueAtTime(20, now + 0.8);
+          gain.gain.setValueAtTime(0.4, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+          osc.connect(gain);
+          osc.start(now);
+          osc.stop(now + 0.8);
+        }
+      } catch (e) {
+        // Audio might be blocked before first interaction
+      }
+    }
+
+    // Mute button trap: clicking INCREASES volume!
+    const muteTrapBtn = document.getElementById('mute-trap-btn');
+    const volumeIndicator = document.getElementById('volume-indicator');
+    const volumeLevels = [1.0, 1.5, 2.2, 3.5, 5.0];
+    let volIndex = 0;
+
+    muteTrapBtn.addEventListener('click', () => {
+      volIndex = (volIndex + 1) % volumeLevels.length;
+      currentVolumeLevel = volumeLevels[volIndex];
+      if (masterGain && audioCtx) {
+        masterGain.gain.setValueAtTime(currentVolumeLevel, audioCtx.currentTime);
+      }
+      playSfx('penalty');
+      const pct = Math.round(currentVolumeLevel * 100);
+      volumeIndicator.textContent = `VOL: ${pct}% (OVERDRIVE)`;
+      muteTrapBtn.textContent = `🚨 VOLUME BOOSTED TO ${pct}%!`;
+      muteTrapBtn.style.background = '#ffff00';
+      muteTrapBtn.style.color = '#ff0000';
+      setTimeout(() => {
+        muteTrapBtn.textContent = '🔇 MUTE ALL SOUNDS';
+        muteTrapBtn.style.background = '#ff0055';
+        muteTrapBtn.style.color = 'white';
+      }, 1200);
+    });
+
+    /* ==========================================================================
+       2. REPLACED SYSTEM CURSOR WITH 26px TRAILING DISPLACEMENT
+       ========================================================================== */
+    const fakeCursor = document.getElementById('fake-cursor');
+    let realMouseX = window.innerWidth / 2;
+    let realMouseY = window.innerHeight / 2;
+
+    window.addEventListener('mousemove', (e) => {
+      realMouseX = e.clientX;
+      realMouseY = e.clientY;
+      fakeCursor.style.left = `${realMouseX}px`;
+      fakeCursor.style.top = `${realMouseY}px`;
+      resetIdleTimer();
+    });
+
+    // Window controls troll
+    const closeBtn = document.getElementById('close-btn');
+    closeBtn.addEventListener('mouseenter', () => {
+      playSfx('dodge');
+      closeBtn.style.transform = `scale(${Math.max(0.2, Math.random())}) translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px)`;
+    });
+    closeBtn.addEventListener('click', () => {
+      alert("CRITICAL WARNING: The 'X' button is decorative. To exit, terminate electricity to your domicile.");
+    });
+
+    /* ==========================================================================
+       3. REGRESSING PROGRESS BAR
+       ========================================================================== */
+    let progressVal = 98.4;
+    const progressFill = document.getElementById('progress-bar-fill');
+    const progressText = document.getElementById('progress-text');
+
+    function updateProgress(delta) {
+      progressVal = Math.max(0.5, Math.min(99.9, progressVal + delta));
+      progressFill.style.width = `${progressVal}%`;
+      progressText.textContent = `${progressVal.toFixed(1)}% COMPLETE`;
+
+      if (progressVal <= 5) {
+        playSfx('penalty');
+        progressVal = 44.0;
+        alert("Progress depleted! Defaulting to 44% pending compliance audit.");
+      }
+    }
+
+    // Progress naturally steadily decays every 800ms
+    setInterval(() => {
+      updateProgress(-0.35);
+    }, 800);
+
+    /* ==========================================================================
+       4. AGGRESSIVE FORM SHUFFLING (BLUR + 5s INACTIVITY)
+       ========================================================================== */
+    const formContainer = document.getElementById('form-field-container');
+    let idleSecondsLeft = 5.0;
+    const idleTimerDisplay = document.getElementById('idle-timer-val');
+
+    function shuffleFormFields() {
+      playSfx('siren');
+      updateProgress(-4.5); // Penalty for shuffling
+      const items = Array.from(formContainer.children);
+      
+      // Fisher-Yates random shuffle
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        formContainer.appendChild(items[j]);
+      }
+
+      // Flash visual shock
+      items.forEach(el => {
+        el.classList.add('shuffle-flash');
+        setTimeout(() => el.classList.remove('shuffle-flash'), 650);
+      });
+    }
+
+    function resetIdleTimer() {
+      idleSecondsLeft = 5.0;
+      idleTimerDisplay.textContent = '5.0s';
+    }
+
+    // Inactivity countdown ticker
+    setInterval(() => {
+      idleSecondsLeft -= 0.1;
+      if (idleSecondsLeft <= 0) {
+        shuffleFormFields();
+        resetIdleTimer();
+      } else {
+        idleTimerDisplay.textContent = `${idleSecondsLeft.toFixed(1)}s`;
+      }
+    }, 100);
+
+    // Any input blur triggers immediate random shuffle
+    const allFormInputs = document.querySelectorAll('#rage-form input');
+    allFormInputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        shuffleFormFields();
+      });
+    });
+
+    /* ==========================================================================
+       5. INPUT SABOTAGE: VOWEL PENALTY (NAME FIELD)
+       ========================================================================== */
+    const nameInput = document.getElementById('user-name');
+    const vowelAlert = document.getElementById('vowel-penalty-alert');
+
+    nameInput.addEventListener('input', (e) => {
+      playSfx('beep');
+      const val = nameInput.value;
+      const lastChar = val.slice(-1);
+      
+      // If vowel typed
+      if (/[aeiouAEIOU]/.test(lastChar)) {
+        playSfx('penalty');
+        updateProgress(-8.0); // Severe penalty
+
+        // Erase vowel and preceding two characters
+        const sanitized = val.slice(0, Math.max(0, val.length - 3));
+        nameInput.value = sanitized;
+
+        // Show loud flashing penalty warning
+        vowelAlert.style.display = 'block';
+        vowelAlert.textContent = `⚠️ ILLEGAL VOWEL '${lastChar.toUpperCase()}' DETECTED! Vaporized 2 preceding letters!`;
+        setTimeout(() => {
+          vowelAlert.style.display = 'none';
+        }, 1600);
+      }
+    });
+
+    /* ==========================================================================
+       6. INPUT SABOTAGE: PASSWORD GAME CHECKLIST
+       ========================================================================== */
+    const passInput = document.getElementById('user-pass');
+    const ruleLen = document.getElementById('rule-len');
+    const ruleRoman = document.getElementById('rule-roman');
+    const ruleGold = document.getElementById('rule-gold');
+    const ruleTemp = document.getElementById('rule-temp');
+    const ruleSum = document.getElementById('rule-sum');
+    const ruleSumLabel = document.getElementById('rule-sum-label');
+
+    function validatePassword() {
+      const p = passInput.value;
+
+      // Rule 1: Min 10 characters
+      const pass1 = p.length >= 10;
+      setRuleStatus(ruleLen, pass1);
+
+      // Rule 2: At least one Roman numeral
+      const pass2 = /[IVXLCDM]/.test(p);
+      setRuleStatus(ruleRoman, pass2);
+
+      // Rule 3: Atomic number of gold (79)
+      const pass3 = p.includes('79');
+      setRuleStatus(ruleGold, pass3);
+
+      // Rule 4: Server room temperature (28 or 28°C or 28C)
+      const pass4 = /28/.test(p);
+      setRuleStatus(ruleTemp, pass4);
+
+      // Rule 5: Sum of all numeric digits must equal exactly 25
+      const digits = (p.match(/\d/g) || []).map(Number);
+      const sum = digits.reduce((acc, n) => acc + n, 0);
+      const pass5 = sum === 25;
+      ruleSumLabel.textContent = `Rule 5: Digits sum to EXACTLY 25 (Current sum: ${sum}${sum > 25 ? ' - OVER BUDGET!' : ''})`;
+      setRuleStatus(ruleSum, pass5);
+    }
+
+    function setRuleStatus(elem, isPassed) {
+      if (isPassed) {
+        elem.classList.remove('fail');
+        elem.classList.add('pass');
+        elem.querySelector('.badge-icon').textContent = '✔️';
+      } else {
+        elem.classList.remove('pass');
+        elem.classList.add('fail');
+        elem.querySelector('.badge-icon').textContent = '❌';
+      }
+    }
+
+    passInput.addEventListener('input', () => {
+      playSfx('beep');
+      validatePassword();
+    });
+
+    /* ==========================================================================
+       7. INPUT SABOTAGE: VOLUME-SLIDER PHONE PICKER
+       ========================================================================== */
+    const phoneSlider = document.getElementById('phone-slider');
+    const phoneDisplay = document.getElementById('phone-number-display');
+    const phoneSubBtn = document.getElementById('phone-sub-btn');
+    const phoneAddBtn = document.getElementById('phone-add-btn');
+    const phoneRandBtn = document.getElementById('phone-rand-btn');
+
+    function formatPhoneNumber(numStr) {
+      const s = String(numStr).padStart(10, '0').slice(-10);
+      return `+1 (${s.slice(0, 3)}) ${s.slice(3, 6)}-${s.slice(6, 10)}`;
+    }
+
+    function updatePhoneUI() {
+      phoneDisplay.textContent = formatPhoneNumber(phoneSlider.value);
+    }
+
+    phoneSlider.addEventListener('input', () => {
+      playSfx('beep');
+      updatePhoneUI();
+    });
+
+    // Inaccurate jittery buttons that overshoot
+    phoneSubBtn.addEventListener('click', () => {
+      playSfx('dodge');
+      let val = BigInt(phoneSlider.value);
+      // 50% chance of random overshoot
+      const offset = Math.random() > 0.4 ? BigInt(Math.floor(Math.random() * 8888 + 100)) : BigInt(1);
+      val = val - offset;
+      if (val < 1000000000n) val = 1000000000n;
+      phoneSlider.value = val.toString();
+      updatePhoneUI();
+    });
+
+    phoneAddBtn.addEventListener('click', () => {
+      playSfx('dodge');
+      let val = BigInt(phoneSlider.value);
+      // 50% chance of random overshoot or jumping backwards
+      const offset = Math.random() > 0.4 ? BigInt(Math.floor(Math.random() * 13337 + 100)) : BigInt(1);
+      val = val + offset;
+      if (val > 9999999999n) val = 9999999999n;
+      phoneSlider.value = val.toString();
+      updatePhoneUI();
+    });
+
+    phoneRandBtn.addEventListener('click', () => {
+      playSfx('siren');
+      const rand10 = Math.floor(1000000000 + Math.random() * 8999999999);
+      phoneSlider.value = rand10;
+      updatePhoneUI();
+    });
+
+    /* ==========================================================================
+       8. INPUT SABOTAGE: EXPONENTIAL AGE DIAL
+       ========================================================================== */
+    const ageSlider = document.getElementById('age-slider');
+    const ageDisplay = document.getElementById('age-display');
+
+    function calculateExponentialAge(step) {
+      // 100,000 steps mapped exponentially
+      // Microsteps: 0 is 0.0000001 days, 50,000 is wildly shifted, 100,000 is 10^12 years
+      const norm = step / 100000;
+      if (norm < 0.2) {
+        const ms = (norm * 100).toFixed(4);
+        return `${ms} Milliseconds (Cellular Embryo)`;
+      } else if (norm < 0.45) {
+        const minutes = ((norm - 0.2) * 500).toFixed(2);
+        return `${minutes} Minutes old (Infant Neonate)`;
+      } else if (norm < 0.485) {
+        const years = (2 + (norm - 0.45) * 80).toFixed(6);
+        return `${years} Years (Rapidly aging child)`;
+      } else if (norm < 0.515) {
+        // Ultra-narrow sweet spot
+        const adultYears = (18 + ((norm - 0.485) / 0.03) * 15).toFixed(4);
+        return `${adultYears} Solar Cycles [NORMAL HUMAN BAND]`;
+      } else if (norm < 0.75) {
+        const centuries = Math.pow(10, (norm - 0.5) * 6).toFixed(1);
+        return `${centuries} Centuries (Vampiric Mummy)`;
+      } else {
+        const eons = Math.pow(10, norm * 14).toExponential(3);
+        return `${eons} Gigayears (Cosmic Dust)`;
+      }
+    }
+
+    ageSlider.addEventListener('input', () => {
+      playSfx('beep');
+      ageDisplay.textContent = `Age: ${calculateExponentialAge(parseInt(ageSlider.value))}`;
+    });
+
+    /* ==========================================================================
+       9. INPUT SABOTAGE: INVERTED AGREEMENT CLAUSE
+       ========================================================================== */
+    const invertedCheckbox = document.getElementById('inverted-checkbox');
+    const agreementStatus = document.getElementById('agreement-status');
+
+    invertedCheckbox.addEventListener('change', () => {
+      playSfx('dodge');
+      if (invertedCheckbox.checked) {
+        agreementStatus.textContent = "STATUS: You have unchecked the denial of non-consent! All rights forfeit.";
+        agreementStatus.style.color = "#008800";
+      } else {
+        agreementStatus.textContent = "STATUS: You have declined to refrain from refusing non-opt-in provisions.";
+        agreementStatus.style.color = "#cc0000";
+      }
+    });
+
+    /* ==========================================================================
+       10. EVASIVE & DECOY BUTTONS (QUANTUM TELEPORT + ROLE SWAP)
+       ========================================================================== */
+    const btnArena = document.getElementById('button-arena');
+    const btnAlpha = document.getElementById('btn-alpha');
+    const btnBeta = document.getElementById('btn-beta');
+
+    // Button states: which one is Evasive and which one is Decoy Trap?
+    let alphaIsEvasive = true;
+
+    // Swap identities periodically
+    function swapButtonRoles() {
+      alphaIsEvasive = !alphaIsEvasive;
+      if (alphaIsEvasive) {
+        btnAlpha.textContent = '🚀 SUBMIT APPLICATION';
+        btnAlpha.style.background = 'linear-gradient(180deg, #00ff00, #008800)';
+        btnAlpha.style.color = '#000';
+
+        btnBeta.textContent = '⚡ INSTANT ENROLL (EXPEDITED)';
+        btnBeta.style.background = 'linear-gradient(180deg, #ff0055, #990033)';
+        btnBeta.style.color = '#fff';
+      } else {
+        btnBeta.textContent = '🚀 SUBMIT APPLICATION';
+        btnBeta.style.background = 'linear-gradient(180deg, #00ff00, #008800)';
+        btnBeta.style.color = '#000';
+
+        btnAlpha.textContent = '⚡ FAST VERIFY (DO NOT CLICK)';
+        btnAlpha.style.background = 'linear-gradient(180deg, #ff0055, #990033)';
+        btnAlpha.style.color = '#fff';
+      }
+    }
+
+    setInterval(swapButtonRoles, 7500);
+
+    // Evasion physics: teleport away if cursor distance < 75px
+    function handleEvasion(btn, e) {
+      const rect = btn.getBoundingClientRect();
+      const arenaRect = btnArena.getBoundingClientRect();
+
+      const btnCenterX = rect.left + rect.width / 2;
+      const btnCenterY = rect.top + rect.height / 2;
+
+      // Note: cursor is displaced by 26px, so we measure from real cursor
+      const dist = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
+
+      if (dist < 78) {
+        playSfx('dodge');
+        // Random new position within arena
+        const maxX = arenaRect.width - rect.width - 20;
+        const maxY = arenaRect.height - rect.height - 20;
+        const newX = Math.max(10, Math.floor(Math.random() * maxX));
+        const newY = Math.max(35, Math.floor(Math.random() * maxY));
+
+        btn.style.left = `${newX}px`;
+        btn.style.top = `${newY}px`;
+      }
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      const evasiveBtn = alphaIsEvasive ? btnAlpha : btnBeta;
+      handleEvasion(evasiveBtn, e);
+    });
+
+    // Decoy button click: FATAL WIPE
+    function triggerDecoyTrap() {
+      playSfx('wipe');
+      const flash = document.getElementById('wipe-flash-overlay');
+      flash.style.display = 'flex';
+
+      setTimeout(() => {
+        flash.style.display = 'none';
+        // Reset everything
+        document.getElementById('rage-form').reset();
+        passInput.value = '';
+        nameInput.value = '';
+        validatePassword();
+        updatePhoneUI();
+        progressVal = 12.0;
+        updateProgress(0);
+        shuffleFormFields();
+        alert("💥 FATAL EXCEPTION 0xDEADBEEF: Unsanctioned decoy action intercepted! Entire application discarded.");
+      }, 1400);
+    }
+
+    // Real button click (if user manages to click despite evasion) -> CAPTCHA
+    function triggerRealSubmit() {
+      playSfx('siren');
+      openCaptchaModal();
+    }
+
+    btnAlpha.addEventListener('click', () => {
+      if (alphaIsEvasive) {
+        triggerRealSubmit();
+      } else {
+        triggerDecoyTrap();
+      }
+    });
+
+    btnBeta.addEventListener('click', () => {
+      if (!alphaIsEvasive) {
+        triggerRealSubmit();
+      } else {
+        triggerDecoyTrap();
+      }
+    });
+
+    /* ==========================================================================
+       11. HOSTILE OBSTACLE: EVASIVE COOKIE BANNER
+       ========================================================================== */
+    const cookieAcceptBtn = document.getElementById('cookie-accept-btn');
+    const cookieBanner = document.getElementById('evasive-cookie-banner');
+
+    cookieAcceptBtn.addEventListener('mouseenter', () => {
+      playSfx('dodge');
+      const bannerRect = cookieBanner.getBoundingClientRect();
+      const maxX = bannerRect.width - 150;
+      const maxY = 40;
+      const newX = Math.floor(Math.random() * maxX);
+      const newY = Math.floor(Math.random() * maxY);
+      cookieAcceptBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+    });
+
+    /* ==========================================================================
+       12. IMPOSSIBLE CAPTCHA MODAL (EXISTENTIAL DREAD)
+       ========================================================================== */
+    const captchaOverlay = document.getElementById('captcha-modal-overlay');
+    const captchaTimerFill = document.getElementById('captcha-timer-fill');
+    let captchaTimerInterval = null;
+
+    function openCaptchaModal() {
+      captchaOverlay.style.display = 'flex';
+      let timeLeft = 100;
+      captchaTimerFill.style.width = '100%';
+
+      // 1.8 second strict deadline running at warp speed
+      if (captchaTimerInterval) clearInterval(captchaTimerInterval);
+      captchaTimerInterval = setInterval(() => {
+        timeLeft -= 5;
+        captchaTimerFill.style.width = `${timeLeft}%`;
+        if (timeLeft <= 0) {
+          clearInterval(captchaTimerInterval);
+          failCaptcha('HESITATION DETECTED: You took longer than 1.8 seconds. True conviction is instantaneous.');
+        }
+      }, 70);
+    }
+
+    function toggleCaptchaTile(tile) {
+      playSfx('beep');
+      tile.classList.toggle('selected');
+    }
+
+    function failCaptcha(reason) {
+      if (captchaTimerInterval) clearInterval(captchaTimerInterval);
+      captchaOverlay.style.display = 'none';
+      playSfx('wipe');
+      alert(`❌ VERIFICATION DENIED:\n\n${reason}\n\nAll session states have been purged.`);
+      document.getElementById('rage-form').reset();
+      progressVal = 5.0;
+      updateProgress(0);
+      shuffleFormFields();
+    }
+
+    // Initialize initial values
+    updatePhoneUI();
+    validatePassword();
+    ageDisplay.textContent = `Age: ${calculateExponentialAge(parseInt(ageSlider.value))}`;
+  </script>
+</body>
+</html>

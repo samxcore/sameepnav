@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Standard User Verification</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f4f5f7;
+      color: #172b4d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 440px;
+      padding: 32px;
+    }
+    h2 {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: #6b778c;
+      margin-bottom: 24px;
+    }
+    #chaosForm {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+    .field-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: #fafbfc;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #ebecf0;
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.2s ease;
+      will-change: transform;
+    }
+    .field-item label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #42526e;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .field-item input {
+      font-size: 14px;
+      padding: 8px 10px;
+      border: 1px solid #dfe1e6;
+      border-radius: 4px;
+      outline: none;
+      background: #ffffff;
+    }
+    .field-item input:focus {
+      border-color: #4c9aff;
+      box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.2);
+    }
+    .form-actions {
+      margin-top: 12px;
+    }
+    button {
+      width: 100%;
+      background-color: #0052cc;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    button:hover {
+      background-color: #0747a6;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Secure Account Setup</h2>
+    <p class="subtitle">Please complete all fields carefully.</p>
+
+    <form id="chaosForm" autocomplete="off">
+      <div class="field-item" data-id="1">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" placeholder="Jane">
+      </div>
+
+      <div class="field-item" data-id="2">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" placeholder="Doe">
+      </div>
+
+      <div class="field-item" data-id="3">
+        <label for="email">Work Email</label>
+        <input type="email" id="email" placeholder="jane@company.com">
+      </div>
+
+      <div class="field-item" data-id="4">
+        <label for="pwd">Password</label>
+        <input type="password" id="pwd" placeholder="Min. 8 characters">
+      </div>
+
+      <div class="field-item" data-id="5">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+      </div>
+
+      <div class="field-item" data-id="6">
+        <label for="postal">Postal / ZIP Code</label>
+        <input type="text" id="postal" placeholder="90210">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" id="submitBtn">Save and Continue</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('chaosForm');
+    const fieldItems = Array.from(document.querySelectorAll('.field-item'));
+    const inputs = Array.from(document.querySelectorAll('.field-item input'));
+    const submitArea = document.querySelector('.form-actions');
+
+    let isShuffling = false;
+
+    function getRandomPermutation(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function executeSmoothShuffle() {
+      if (isShuffling) return;
+      isShuffling = true;
+
+      const firstPositions = new Map();
+      fieldItems.forEach(item => {
+        firstPositions.set(item, item.getBoundingClientRect());
+      });
+
+      const shuffledItems = getRandomPermutation(fieldItems);
+      shuffledItems.forEach(item => {
+        form.insertBefore(item, submitArea);
+      });
+
+      const randomIndices = getRandomPermutation(inputs.map((_, i) => i + 1));
+      inputs.forEach((input, index) => {
+        input.setAttribute('tabindex', randomIndices[index]);
+      });
+
+      shuffledItems.forEach(item => {
+        const firstRect = firstPositions.get(item);
+        const lastRect = item.getBoundingClientRect();
+        const deltaY = firstRect.top - lastRect.top;
+
+        item.style.transition = 'none';
+        item.style.transform = `translateY(${deltaY}px)`;
+      });
+
+      form.offsetHeight;
+
+      shuffledItems.forEach(item => {
+        item.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1)';
+        item.style.transform = 'translateY(0)';
+      });
+
+      setTimeout(() => {
+        shuffledItems.forEach(item => {
+          item.style.transition = '';
+          item.style.transform = '';
+        });
+        isShuffling = false;
+      }, 420);
+    }
+
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        executeSmoothShuffle();
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === ' ') {
+          setTimeout(executeSmoothShuffle, 10);
+        }
+      });
+    });
+
+    let idleTimer;
+    function resetIdleTimer() {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        executeSmoothShuffle();
+      }, 7000);
+    }
+
+    ['mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+      document.addEventListener(event, resetIdleTimer, { passive: true });
+    });
+    resetIdleTimer();
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert("Validation Error: Field coordinates have shifted during transmission. Please try again.");
+      executeSmoothShuffle();
+    });
+  </script>
+</body>
+</html>
